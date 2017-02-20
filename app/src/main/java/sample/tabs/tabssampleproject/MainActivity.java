@@ -8,6 +8,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -34,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
         page1.setTitle("TAB 1");
         pages.add(page1);
 
-        TabPage page2 = new TabPage();
+        TabPageTwo page2 = new TabPageTwo();
         page2.setTitle("TAB 2");
         pages.add(page2);
 
@@ -52,6 +54,28 @@ public class MainActivity extends AppCompatActivity {
             setFragmentView(inflater.inflate(R.layout.simple_page,container,false));
             TextView tv1 = (TextView) findViewById(R.id.pageText);
             tv1.setText(getTitle());
+            return getFragmentView();
+        }
+    }
+
+    public static class TabPageTwo extends BaseFragment{
+        @Nullable
+        @Override
+        public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+            setFragmentView(inflater.inflate(R.layout.tabpage_two,container,false));
+            final LinearLayout linearLayout = (LinearLayout) findViewById(R.id.silidingLayout);
+            Button btn = (Button) findViewById(R.id.btn);
+            btn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(linearLayout.getTranslationY() > 0){
+                        linearLayout.animate().setDuration(500).translationY(0);
+                    }else {
+                        linearLayout.animate().setDuration(500).translationY(500);
+
+                    }
+                }
+            });
             return getFragmentView();
         }
     }
